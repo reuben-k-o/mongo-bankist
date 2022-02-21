@@ -3,3 +3,6 @@ exports.getIndex = (req, res, next) => {
     path: '/',
   });
 };
+
+exports.getLogin = (req, res, next) => {};
+exports.postLogin = (req, res, next) => {};

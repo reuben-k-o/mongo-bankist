@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const bankRoutes = require('./routes/bank');
 const rootDir = require('./util/path');
+
 const app = express();
 
 app.set('view engine', 'ejs');
