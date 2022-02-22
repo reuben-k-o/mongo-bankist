@@ -9,11 +9,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  movements: [Number],
-  movementsDates: [Date],
-  interestRate: Number,
-  currency: String,
-  locale: String,
 });
 
 module.exports = model('User', userSchema);
