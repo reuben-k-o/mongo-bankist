@@ -4,3 +4,6 @@ exports.getIndex = (req, res, next) => {
     isAuthenticated: false,
   });
 };
+
+exports.getMovements = (req, res, next) => {};
+exports.postMovements = (req, res, next) => {};

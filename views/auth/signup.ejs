@@ -6,25 +6,50 @@
     
 
 <%- include('../includes/navigation.ejs')%>
+
+<% if (errorMessage) { %>
+  <div class="user-message user-message--error"> <%= errorMessage %></div>
+<% } %>
 <form class="loginn-form" action="/signup" method="POST">
+
   <div class="form-control">
     <label for="username">Username</label>
-    <input type="text" name="username" id="username" />
+    <input
+    class="<%= validationErrors.find(e => e.param === 'username') ? 'invalid' : '' %>" 
+    type="text" 
+    name="username" 
+    id="username"
+    value="<% if(hasErrors){ %> <%= userData.username %> <% } %>" />
   </div>
   
   <div class="form-control">
     <label for="email">Email</label>
-    <input type="text" name="email" id="email"/>
+    <input
+    class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
+     type="text" 
+     name="email" 
+     id="email"
+     value="<% if(hasErrors){ %> <%= userData.email %> <% } %>" />
   </div>
 
   <div class="form-control">
     <label for="pin">Pin</label>
-    <input type="password" name="pin" id="pin" />
+    <input
+    class="<%= validationErrors.find(e => e.param === 'pin') ? 'invalid' : '' %>"
+     type="password" 
+     name="pin" 
+     id="pin"
+     value="<% if(hasErrors){ %> <%= userData.pin %> <% } %>"  />
   </div>
 
   <div class="form-control">
     <label for="confirmPin">Confirm Pin</label>
-    <input type="password" name="confirmPin" id="confirmPin"/>
+    <input 
+    class="<%= validationErrors.find(e => e.param === 'confirmPin') ? 'invalid' : '' %>"
+    type="password" 
+    name="confirmPin" 
+    id="confirmPin"
+    value="<% if(hasErrors){ %> <%= userData.confirmPin %> <% } %>" />
   </div>
 
   <button class="btn" type="submit">Submit</button>
