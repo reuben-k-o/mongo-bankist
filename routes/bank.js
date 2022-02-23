@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const bankController = require('../controllers/bank');
+const isAuth = require('../middleware/is-auth');
 
-router.get('/', bankController.getIndex);
+router.get('/', isAuth, bankController.getIndex);
 
-router.get('/', bankController.getMovements);
-router.post('/', bankController.postMovements);
+router.get('/', isAuth, bankController.getMovements);
+router.post('/', isAuth, bankController.postMovements);
 
 module.exports = router;

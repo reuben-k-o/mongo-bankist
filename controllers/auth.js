@@ -48,11 +48,25 @@ exports.postLogin = (req, res, next) => {
         .compare(pin, user.pin)
         .then(doMatch => {
           if (doMatch) {
-            console.log('logged in');
-            return res.redirect('/');
+            req.session.isLoggedIn = true;
+            req.session.user = user;
+            return req.session.save(err => {
+              console.log(err);
+              res.redirect('/');
+            });
           }
           console.log('password mismatch');
-          return res.redirect('/login');
+          return res.status(422).render('auth/login', {
+            path: '/login',
+            isAuthenticated: false,
+            hasErrors: true,
+            errorMessage: 'Invalid password, Kindly re-enter the correct one!',
+            validationErrors: errors.array(),
+            userData: {
+              username,
+              pin,
+            },
+          });
         })
         .catch(err => {
           console.log(err);
