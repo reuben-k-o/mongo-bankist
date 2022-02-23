@@ -1,7 +1,7 @@
 exports.getIndex = (req, res, next) => {
   res.render('index', {
     path: '/',
-    isAuthenticated: false,
+    isAuthenticated: true,
   });
 };
 

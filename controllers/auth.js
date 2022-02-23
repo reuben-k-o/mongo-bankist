@@ -13,7 +13,6 @@ exports.getLogin = (req, res, next) => {
   }
   res.render('auth/login', {
     path: '/login',
-    isAuthenticated: false,
     hasErrors: false,
     errorMessage: message,
     validationErrors: [],
@@ -28,7 +27,6 @@ exports.postLogin = (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(422).render('auth/login', {
       path: '/login',
-      isAuthenticated: false,
       hasErrors: true,
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
@@ -58,7 +56,6 @@ exports.postLogin = (req, res, next) => {
           console.log('password mismatch');
           return res.status(422).render('auth/login', {
             path: '/login',
-            isAuthenticated: false,
             hasErrors: true,
             errorMessage: 'Invalid password, Kindly re-enter the correct one!',
             validationErrors: errors.array(),
@@ -78,7 +75,6 @@ exports.postLogin = (req, res, next) => {
 exports.getSignup = (req, res, next) => {
   res.render('auth/signup', {
     path: '/signup',
-    isAuthenticated: false,
     hasErrors: false,
     errorMessage: null,
     validationErrors: [],
@@ -95,7 +91,6 @@ exports.postSignup = (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(422).render('auth/signup', {
       path: '/signup',
-      isAuthenticated: false,
       hasErrors: true,
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
@@ -122,4 +117,11 @@ exports.postSignup = (req, res, next) => {
       res.redirect('/login');
     })
     .catch(err => console.log(err));
+};
+
+exports.postLogout = (req, res, next) => {
+  req.session.destroy(err => {
+    console.log(err);
+    res.redirect('/');
+  });
 };
