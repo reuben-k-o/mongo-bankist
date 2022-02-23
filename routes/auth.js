@@ -13,8 +13,7 @@ router.post(
       .trim(),
     check('pin', 'Pin should have 4 characters')
       .isNumeric()
-      .isLength({ min: 4 })
-      .trim(),
+      .isLength({ min: 4, max: 4 }),
   ],
   authController.postLogin
 );
@@ -26,12 +25,13 @@ router.post(
     check('username', 'Minimum username length is 5 characters')
       .isLength({ min: 5 })
       .trim(),
-    check('email', 'Enter a valid email').isURL(),
+    check('email', 'Enter a valid email').isEmail(),
     check('pin', 'Pin should and have 4 characters')
       .isNumeric()
-      .isLength({ min: 4, max: 4 })
-      .trim(),
-    check('confirmPin', 'Pin should match').isNumeric().trim(),
+      .isLength({ min: 4, max: 4 }),
+    check('confirmPin', 'Pin should match')
+      .isNumeric()
+      .isLength({ min: 4, max: 4 }),
   ],
   authController.postSignup
 );

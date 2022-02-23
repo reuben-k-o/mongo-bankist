@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
+const flash = require('connect-flash');
 
 const bankRoutes = require('./routes/bank');
 const authRoutes = require('./routes/auth');
@@ -14,6 +15,7 @@ app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(rootDir, 'public')));
+app.use(flash());
 
 app.use(bankRoutes);
 app.use(authRoutes);
