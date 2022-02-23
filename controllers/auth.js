@@ -14,6 +14,7 @@ exports.getLogin = (req, res, next) => {
   res.render('auth/login', {
     path: '/login',
     hasErrors: false,
+    isAuthenticated: false,
     errorMessage: message,
     validationErrors: [],
   });
@@ -28,6 +29,7 @@ exports.postLogin = (req, res, next) => {
     return res.status(422).render('auth/login', {
       path: '/login',
       hasErrors: true,
+      isAuthenticated: false,
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
       userData: {
@@ -57,6 +59,7 @@ exports.postLogin = (req, res, next) => {
           return res.status(422).render('auth/login', {
             path: '/login',
             hasErrors: true,
+            isAuthenticated: false,
             errorMessage: 'Invalid password, Kindly re-enter the correct one!',
             validationErrors: errors.array(),
             userData: {
@@ -76,6 +79,7 @@ exports.getSignup = (req, res, next) => {
   res.render('auth/signup', {
     path: '/signup',
     hasErrors: false,
+    isAuthenticated: false,
     errorMessage: null,
     validationErrors: [],
   });
@@ -92,6 +96,7 @@ exports.postSignup = (req, res, next) => {
     return res.status(422).render('auth/signup', {
       path: '/signup',
       hasErrors: true,
+      isAuthenticated: false,
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
       userData: {
@@ -122,6 +127,6 @@ exports.postSignup = (req, res, next) => {
 exports.postLogout = (req, res, next) => {
   req.session.destroy(err => {
     console.log(err);
-    res.redirect('/');
+    res.redirect('/login');
   });
 };

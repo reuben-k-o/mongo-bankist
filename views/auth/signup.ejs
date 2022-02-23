@@ -51,6 +51,7 @@
     id="confirmPin"
     value="<% if(hasErrors){ %> <%= userData.confirmPin %> <% } %>" />
   </div>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
 
   <button class="btn" type="submit">Submit</button>
 </form>

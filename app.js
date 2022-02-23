@@ -10,6 +10,7 @@ const csrf = require('csurf');
 const bankRoutes = require('./routes/bank');
 const authRoutes = require('./routes/auth');
 const rootDir = require('./util/path');
+const User = require('./models/user');
 
 const app = express();
 const MONGODB_URI =
