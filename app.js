@@ -11,13 +11,12 @@ const bankRoutes = require('./routes/bank');
 const authRoutes = require('./routes/auth');
 const rootDir = require('./util/path');
 const User = require('./models/user');
+const config = require('./config');
 
 const app = express();
-const MONGODB_URI =
-  'mongodb+srv://Reubenk:Reuben11*@cluster0.vnlvk.mongodb.net/bankist';
 
 const store = new MongoDBStore({
-  uri: MONGODB_URI,
+  uri: config.MONGODB_URI,
   collection: 'sessions',
 });
 const csrfProtection = csrf();
@@ -60,7 +59,7 @@ app.use(bankRoutes);
 app.use(authRoutes);
 
 mongoose
-  .connect(MONGODB_URI)
+  .connect(config.MONGODB_URI)
   .then(result => {
     app.listen(3000);
   })
