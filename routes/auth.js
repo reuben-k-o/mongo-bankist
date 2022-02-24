@@ -45,17 +45,20 @@ router.post(
             );
           }
         });
-      }),
+      })
+      .trim(),
     check('pin', 'Pin should and have 4 characters')
       .isNumeric()
-      .isLength({ min: 4, max: 4 }),
-    check('confirmPin').custom((value, { req }) => {
-      console.log(req.body.confirmPin);
-      if (value !== req.body.confirmPin) {
-        throw new Error('Pin mismatch!');
-      }
-      return true;
-    }),
+      .isLength({ min: 4, max: 4 })
+      .trim(),
+    check('confirmPin')
+      .trim()
+      .custom((value, { req }) => {
+        if (value !== req.body.pin) {
+          throw new Error('Pin mismatch!');
+        }
+        return true;
+      }),
   ],
   authController.postSignup
 );
