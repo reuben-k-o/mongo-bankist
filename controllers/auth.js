@@ -4,7 +4,14 @@ const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const User = require('../models/user');
-const transporter = nodemailer.createTransport(sendgridTransport);
+const config = require('../config');
+const transporter = nodemailer.createTransport(
+  sendgridTransport({
+    auth: {
+      api_key: config.SENDGRID_KEY,
+    },
+  })
+);
 
 exports.getLogin = (req, res, next) => {
   let message = req.flash('error');
@@ -123,6 +130,13 @@ exports.postSignup = (req, res, next) => {
     })
     .then(() => {
       res.redirect('/login');
+      return transporter.sendMail({
+        to: email,
+        from: 'Bankist Team <rubenkhaemba@gmail.com>',
+        subject: 'Signup success',
+        html: `<h1>Welcome to the Bankist Team</h1> 
+              <p>Thanks for signup, looking forward to working with you!!</p>`,
+      });
     })
     .catch(err => console.log(err));
 };
